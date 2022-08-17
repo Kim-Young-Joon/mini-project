@@ -1,21 +1,29 @@
 package com.soongsil.graduateproject.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Menu {
 
     @Id @GeneratedValue
     @Column(name = "menu_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_id")
     private Cafe cafe;
 
     private String name;
 
-    private Long price;
+    private int price;
 
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private Category category;
 }
