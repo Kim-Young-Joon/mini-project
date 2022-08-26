@@ -29,4 +29,10 @@ public class Member {
 
     private String phoneNumber;
 
+    private boolean isSignUp;
+
+    public void setLoginId(String loginId){
+        this.loginId = loginId;
+    }
+
 }
