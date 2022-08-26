@@ -26,6 +26,11 @@ public class MemberController {
 
     @PostMapping("/signup")
     public String saveMember(@ModelAttribute @Valid MemberForm memberForm, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "signup";
+        }
+
         Member member = new Member(
                 memberForm.getLoginId(),
                 memberForm.getPassword(),
