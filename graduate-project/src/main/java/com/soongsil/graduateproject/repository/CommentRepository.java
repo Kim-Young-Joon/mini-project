@@ -1,13 +1,7 @@
 package com.soongsil.graduateproject.repository;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import com.soongsil.graduateproject.domain.Comment;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.EntityManager;
-
-@Repository
-@RequiredArgsConstructor
-public class CommentRepository {
-
-    private final EntityManager em;
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 }

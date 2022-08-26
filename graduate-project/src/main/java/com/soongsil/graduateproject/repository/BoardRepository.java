@@ -1,13 +1,7 @@
 package com.soongsil.graduateproject.repository;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import com.soongsil.graduateproject.domain.Board;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.EntityManager;
-
-@Repository
-@RequiredArgsConstructor
-public class BoardRepository {
-
-    private final EntityManager em;
+public interface BoardRepository extends JpaRepository<Board, Long> {
 }
