@@ -32,4 +32,19 @@ class MemberServiceTest {
         //then
         assertThat(member).isEqualTo(memberRepository.findById(savedMember.getId()).get());
     }
+
+    @Test
+    @DisplayName("회원 탈퇴 테스트")
+    void deleteTest(){
+        //given
+        Member member = new Member("aaa", "1234", "tamtam", "xxx@xxx.com", "1234556");
+        Member savedMember = memberService.join(member);
+
+        //when
+        Member deleteMember = memberService.delete(savedMember);
+
+        //then
+        assertThat(deleteMember.isSignUp()).isFalse();
+
+    }
 }

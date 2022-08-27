@@ -19,7 +19,6 @@ class MemberRepositoryTest {
     @DisplayName("회원 가입 테스트")
     void join(){
         Member member = new Member("aaa", "1234", "tamtam", "xxx@xxx.com", "1234556");
-        member.setLoginId("TamTam");
 
         Member savedMember = memberRepository.save(member);
 

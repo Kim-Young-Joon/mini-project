@@ -32,12 +32,13 @@ public class Member {
 
     private boolean isSignUp; // 탈퇴여부
 
-    public void setLoginId(String loginId){
-        this.loginId = loginId;
+    //탈퇴 시 사용할 메서드 -> isSignUp -> false로 바꿔줌
+    public void setDeleteMember(){
+        this.isSignUp = false;
     }
 
     //정적 팩토리 메서드
-    //To do
+    //TODO:
 
 
     public Member(String loginId, String password, String name, String eMail, String phoneNumber) {
