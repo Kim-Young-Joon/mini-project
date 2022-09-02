@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board {
+public class Board extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "board_id")

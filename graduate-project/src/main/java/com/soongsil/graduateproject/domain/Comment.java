@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue
