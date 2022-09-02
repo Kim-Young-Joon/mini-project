@@ -1,4 +1,4 @@
 package com.soongsil.graduateproject.dto;
 
-public class MemberDTO {
+public class MemberUpdateDto {
 }

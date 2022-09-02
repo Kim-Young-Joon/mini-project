@@ -6,15 +6,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    //회원 조회
+    public Member findMember(Long id){
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 회원 정보입니다."));
+        return member;
+    }
 
     //회원 가입
     @Transactional
@@ -23,27 +27,36 @@ public class MemberService {
         return member;
     }
 
+    //로그인
+    public Member login(String loginId, String password){
+        Member member = memberRepository.findByLoginId(loginId).orElse(null);
+        if(member == null){
+            return null;
+        }
+        return member.loginLogic(password);
+    }
+
+
     //회원 탈퇴
     @Transactional
-    public Member delete(Member member){
-        Optional<Member> optionalMember = memberRepository.findById(member.getId());
-        //TODO: 리팩토링 해야됨
-        try{
-            Member findMember = optionalMember.get();
-            findMember.setDeleteMember();
-        }catch (NoSuchElementException e){
-            throw new IllegalStateException(e);
+    public boolean delete(Long id){
+        Member member = memberRepository.findById(id).orElse(null);
+        if(member == null){
+            return false;
         }
-        return member;
+        member.setDeleteMember();
+        return true;
     }
 
     //회원 정보 수정
     @Transactional
-    public Member update(Member member){
+    public boolean update(Long id){
         //JPA 변경 감지 활용
-        Member findMember = memberRepository.findById(member.getId()).get();
-        //TODO: 리팩토링 해야됨 -> get()말고 다른 방법 생각하기
+        Member member = memberRepository.findById(id).orElse(null);
+        if(member == null){
+            return false;
+        }
         //TODO: setter 대신에 사용할 메서드 정의해야됨. -> 어떤 방법으로 메서드 만들지 고민하기
-        return findMember;
+        return true;
     }
 }

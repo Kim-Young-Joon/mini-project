@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -47,5 +47,12 @@ public class Member {
         this.name = name;
         this.eMail = eMail;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Member loginLogic(String password) {
+        if(this.password.equals(password)){
+            return this;
+        }
+        return null;
     }
 }
