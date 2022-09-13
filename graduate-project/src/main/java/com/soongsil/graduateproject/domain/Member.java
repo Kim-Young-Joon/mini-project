@@ -26,7 +26,7 @@ public class Member extends BaseEntity{
 
     private String name;
 
-    private String eMail;
+    private String mail;
 
     private String phoneNumber;
 
@@ -41,11 +41,11 @@ public class Member extends BaseEntity{
     //TODO:
 
 
-    public Member(String loginId, String password, String name, String eMail, String phoneNumber) {
+    public Member(String loginId, String password, String name, String mail, String phoneNumber) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;
-        this.eMail = eMail;
+        this.mail = mail;
         this.phoneNumber = phoneNumber;
     }
 

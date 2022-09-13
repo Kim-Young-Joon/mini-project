@@ -2,7 +2,9 @@ package com.soongsil.graduateproject.controller;
 
 import com.soongsil.graduateproject.domain.Member;
 import com.soongsil.graduateproject.dto.MemberLoginDto;
+import com.soongsil.graduateproject.dto.MemberSaveDto;
 import com.soongsil.graduateproject.service.MemberService;
+import com.soongsil.graduateproject.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -22,49 +26,62 @@ public class MemberController {
     //회원가입 폼으로 이동
     @GetMapping("/signup")
     public String createForm(Model model){
-        model.addAttribute("memberForm", new MemberForm());
-        return "signup";
+        model.addAttribute("memberSaveDto", new MemberSaveDto());
+        return "members/signup";
     }
 
     //회원가입
     @PostMapping("/signup")
-    public String saveMember(@ModelAttribute @Valid MemberForm memberForm, BindingResult bindingResult){
+    public String saveMember(@ModelAttribute @Valid MemberSaveDto memberSaveDto, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return "signup";
+            return "members/signup";
         }
 
-        Member member = new Member(
-                memberForm.getLoginId(),
-                memberForm.getPassword(),
-                memberForm.getName(),
-                memberForm.getEMail(),
-                memberForm.getPhoneNumber()
-        );
+        Member member = memberSaveDto.toEntity();
         memberService.join(member);
-        return "signup";
+
+        return "members/signup";
     }
 
     //로그인 폼
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("loginForm") MemberLoginDto loginForm){
+    public String loginForm(@ModelAttribute MemberLoginDto memberLoginDto){
         return "login/loginForm";
     }
 
     //로그인
     @PostMapping("/login")
-    public String login(@ModelAttribute("loginForm") MemberLoginDto loginForm, BindingResult bindingResult){
+    public String login(@ModelAttribute MemberLoginDto memberLoginDto, BindingResult bindingResult, HttpServletRequest request){
         if(bindingResult.hasErrors()){
             return "login/loginForm";
         }
 
-        Member loginMember = memberService.login(loginForm.getLoginId(), loginForm.getPassword());
+        Member loginMember = memberService.login(memberLoginDto.getLoginId(), memberLoginDto.getPassword());
 
         if(loginMember == null){
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 틀렸습니다");
             return "login/loginForm";
         }
-        //TODO: 로그인 성공 처리 로직 구현 -> 세션 이용
+
+        if(!loginMember.isSignUp()){
+            bindingResult.reject("DeleteMember", "탈퇴한 회원입니다.");
+            return "login/loginForm";
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+        return "redirect:/";
+    }
+
+    //로그아웃
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            session.invalidate();
+        }
         return "redirect:/";
     }
 

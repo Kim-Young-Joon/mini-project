@@ -16,7 +16,7 @@
 <body>
 <!-- header 내용 추가 필요시 추가할 것 -->
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a th:href="@{/}"><img th:src="@{/img/test_logo.png}" style="width: 100px; height: 100px;"/></a>
+    <a th:href="@{/static}"><img th:src="@{/img/test_logo.png}" style="width: 100px; height: 100px;"/></a>
 </header>
 
 <!-- nav bar -->
@@ -33,7 +33,7 @@
     <h3>회원가입</h3>
 </div>
 <div class="align-items-center pt-3 pb-2 mb-3 border-top">
-    <form action="/signup" id="signupForm" th:object="${memberForm}" method="post">
+    <form action="/signup" id="signupForm" th:object="${memberSaveDto}" method="post">
         <div class="mb-2 mt-3">
             <label for="loginId">아이디</label>
             <input type="text" id="loginId" th:field="*{loginId}" class="form-control" placeholder="아이디를 입력해주세요">
@@ -51,8 +51,8 @@
         </div>
         <div class="mb-2">
             <label for="eMail">email</label>
-            <input type="text" id="eMail" th:field="*{eMail}" class="form-control" placeholder="example@example.com">
-            <div class="errormsg" th:errors="*{eMail}"></div>
+            <input type="text" id="eMail" th:field="*{mail}" class="form-control" placeholder="example@example.com">
+            <div class="errormsg" th:errors="*{mail}"></div>
         </div>
         <div class="mb-2">
             <label for="phoneNumber">phone</label>
