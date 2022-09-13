@@ -49,6 +49,7 @@ public class Member extends BaseEntity{
         this.phoneNumber = phoneNumber;
     }
 
+    //로그인 메서드
     public Member loginLogic(String password) {
         if(this.password.equals(password)){
             return this;
