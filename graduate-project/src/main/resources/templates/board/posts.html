@@ -17,22 +17,22 @@
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a th:href="@{/}"><img th:src="@{/img/test_logo.png}" style="width: 100px; height: 100px;"/></a>
 </header>
-<button th:href="@{/posts/write}" class="btn btn-primary">게시글 등록</button>
+<a th:href="@{/posts/write}" class="btn btn-primary">게시글 등록</a>
 <table>
     <thead>
         <th>no</th>
         <th>제목</th>
         <th>작성자</th>
         <th>작성일</th>
-        <th>조회수?</th>
+        <th>조회수</th>
     </thead>
     <tbody>
         <tr th:each="board : ${boardList}">
-            <td>1</td>
+            <td th:text="${board.id}"></td>
             <td th:text="${board.title}" th:href="@{/posts/{id} (id=${board.id})}"></td>
             <td th:text="${board.member.name}"></td>
-            <td th:text="${board.date}"></td>
-            <td>5</td>
+            <td th:text="${board.createdDate}"></td>
+            <td>1</td>
         </tr>
     </tbody>
 </table>
