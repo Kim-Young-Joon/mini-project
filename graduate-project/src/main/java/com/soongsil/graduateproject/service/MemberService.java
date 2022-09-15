@@ -50,13 +50,12 @@ public class MemberService {
 
     //회원 정보 수정
     @Transactional
-    public boolean update(Long id){
-        //JPA 변경 감지 활용
+    public Member update(Long id, String password, String name, String mail, String phoneNumber){
         Member member = memberRepository.findById(id).orElse(null);
         if(member == null){
-            return false;
+            return null;
         }
-        //TODO: setter 대신에 사용할 메서드 정의해야됨. -> 어떤 방법으로 메서드 만들지 고민하기
-        return true;
+        member.updateMember(password, name, mail, phoneNumber);
+        return member;
     }
 }

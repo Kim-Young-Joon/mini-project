@@ -3,6 +3,7 @@ package com.soongsil.graduateproject.controller;
 import com.soongsil.graduateproject.domain.Member;
 import com.soongsil.graduateproject.dto.MemberLoginDto;
 import com.soongsil.graduateproject.dto.MemberSaveDto;
+import com.soongsil.graduateproject.dto.MemberUpdateDto;
 import com.soongsil.graduateproject.service.MemberService;
 import com.soongsil.graduateproject.session.SessionConst;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,52 @@ public class MemberController {
         return "members/signup";
     }
 
+    //회원 탈퇴
+    @PostMapping("/delete")
+    public String delete(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+            memberService.delete(memberId);
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
+
+    //회원 수정
+    @GetMapping("/update")
+    public String updateForm(@ModelAttribute MemberUpdateDto memberUpdateDto, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+            Member member = memberService.findMember(memberId);
+            memberUpdateDto.toDto(member);
+        }
+        return "members/updateMemberForm";
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute MemberUpdateDto memberUpdateDto, BindingResult bindingResult, HttpServletRequest request){
+
+        if(bindingResult.hasErrors()){
+            return "members/updateMemberForm";
+        }
+
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+            Member updateMember = memberService.update(
+                    memberId,
+                    memberUpdateDto.getPassword(),
+                    memberUpdateDto.getName(),
+                    memberUpdateDto.getMail(),
+                    memberUpdateDto.getPhoneNumber());
+
+            session.setAttribute(SessionConst.LOGIN_MEMBER, updateMember);
+        }
+        return "redirect:/";
+    }
+
     //로그인 폼
     @GetMapping("/login")
     public String loginForm(@ModelAttribute MemberLoginDto memberLoginDto){
@@ -70,7 +117,7 @@ public class MemberController {
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember.getId());
 
         return "redirect:/";
     }

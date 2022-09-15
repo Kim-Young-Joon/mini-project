@@ -56,4 +56,11 @@ public class Member extends BaseEntity{
         }
         return null;
     }
+
+    public void updateMember(String password, String name, String mail, String phoneNumber) {
+        this.password = password;
+        this.name = name;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+    }
 }
