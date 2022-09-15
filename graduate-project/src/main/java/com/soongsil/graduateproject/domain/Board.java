@@ -26,6 +26,9 @@ public class Board extends BaseEntity{
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private LocalDateTime date;
-
+    public Board(Member member, String title, String content) {
+        this.member = member;
+        this.title = title;
+        this.content = content;
+    }
 }
