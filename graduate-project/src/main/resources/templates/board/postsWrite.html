@@ -19,25 +19,25 @@
     <h3>회원가입</h3>
   </div>
   <div class="align-items-center pt-3 pb-2 mb-3 border-top">
-    <form action="/signup" id="signupForm" th:object="${boardForm}" method="post">
+    <form action="/posts/write" id="savePost" th:object="${boardSaveDto}" method="post">
 <!--      <div class="mb-2 mt-3">-->
 <!--        <label for="loginId">게시글 아이디</label>-->
 <!--        <input type="text" id="loginId" th:field="*{id}" class="form-control" placeholder="아이디를 입력해주세요">-->
 <!--        <div class="errormsg" th:errors="*{id}"></div>-->
 <!--      </div>-->
       <div class="mb-2">
-        <label for="password">제목</label>
-        <input type="password" id="password" th:field="*{title}" class="form-control" placeholder="비밀번호를 입력해주세요">
+        <label for="title">제목</label>
+        <input type="text" id="title" th:field="*{title}" class="form-control" placeholder="제목을 입력해주세요">
 <!--        <div class="errormsg" th:errors="*{title}"></div>-->
       </div>
       <div class="mb-2">
-        <label for="name">내용</label>
-        <input type="text" id="name" th:field="*{content}" class="form-control" placeholder="이름을 입력해주세요">
-        <div class="errormsg" th:errors="*{content}"></div>
+        <label for="content">내용</label>
+        <input type="text" id="content" th:field="*{content}" class="form-control" placeholder="내용을 입력해주세요">
+<!--        <div class="errormsg" th:errors="*{content}"></div>-->
       </div>
 
       <div class="mb-2 mt-2">
-        <input type="submit" id="btn-signup" class="btn btn-primary" value="쓰기"/>
+        <input type="submit" id="save-post" class="btn btn-primary" value="쓰기"/>
       </div>
     </form>
   </div>
