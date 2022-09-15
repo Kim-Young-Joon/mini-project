@@ -60,5 +60,9 @@ public class BoardController {
         model.addAttribute("boardDto", boardGetDto);
         return "board/board";
     }
-
+    @PostMapping("/posts/{id}")
+    public String viewComment() {
+        // 댓글 DB 에서 가져와서 view 단으로 model 에 담아서 보내기
+        return "";
+    }
 }
