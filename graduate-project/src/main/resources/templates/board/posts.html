@@ -29,9 +29,13 @@
     <tbody>
         <tr th:each="board : ${boardList}">
             <td th:text="${board.id}"></td>
-            <td th:text="${board.title}" th:href="@{/posts/{id} (id=${board.id})}"></td>
+            <td>
+                <a th:href="@{'/posts/' + ${board.id}}">
+                    <span th:text="${board.title}"></span>
+                </a>
+            </td>
             <td th:text="${board.member.name}"></td>
-            <td th:text="${board.createdDate}"></td>
+            <td th:text="${board.createdDate.toLocalDate()}"></td>
             <td>1</td>
         </tr>
     </tbody>
