@@ -6,16 +6,18 @@ $(document).ready(function () {
     // 댓글 가져오기 -> GET
     // 댓글 출력 -> POST
 
+    let comment = {
+        user: $("#user").val(),
+        content: $("#content").val()
+    }
+
     $.ajax({
         async : true,
         url : '/posts/' + postId, // 댓글 가져올 url -> controller mapping
         type : 'GET',
         timeout : 3000, // ms 단위 -> 시간 내에 응답 안오면 실패로 간주함 (즉, 3초 내에 응답)
-        dataType : 'json',
-        data : {
-            // ajax 통신 이후 응답 받는 데이터
-        },
-        success : function(data) {
+        data : comment,
+        success : function() {
             alert('서버 응답 성공 확인');
 
             // $("#comment").each(data, function() {});

@@ -56,7 +56,7 @@ public class BoardController {
         Board board = boardService.findOne(id);
         BoardGetDto boardGetDto = new BoardGetDto(board);
         model.addAttribute("boardDto", boardGetDto);
-        return "board/board";
+        return "board/postsDetail";
     }
 
     @PostMapping("/posts/{id}")
