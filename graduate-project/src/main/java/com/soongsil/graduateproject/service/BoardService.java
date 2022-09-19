@@ -2,6 +2,7 @@ package com.soongsil.graduateproject.service;
 
 import com.soongsil.graduateproject.domain.Board;
 import com.soongsil.graduateproject.domain.Member;
+import com.soongsil.graduateproject.dto.BoardSearchCond;
 import com.soongsil.graduateproject.repository.BoardRepository;
 import com.soongsil.graduateproject.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,14 @@ public class BoardService {
     }
 
     public Board findOne(Long id) {
-        return boardRepository.findBoardById(id);
+        return boardRepository.findBoardById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
     }
+
+    public List<Board> findList(BoardSearchCond condition, Long page) {
+        return boardRepository.search(condition, page);
+    }
+
+
 
 }

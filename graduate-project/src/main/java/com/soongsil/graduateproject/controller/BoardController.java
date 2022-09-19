@@ -3,16 +3,14 @@ package com.soongsil.graduateproject.controller;
 import com.soongsil.graduateproject.domain.Board;
 import com.soongsil.graduateproject.dto.BoardGetDto;
 import com.soongsil.graduateproject.dto.BoardPostDto;
+import com.soongsil.graduateproject.dto.BoardSearchCond;
 import com.soongsil.graduateproject.service.BoardService;
 import com.soongsil.graduateproject.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,8 +24,8 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/posts")
-    public String list(Model model) {
-        List<Board> boardList = boardService.findBoardsAll();
+    public String list(Model model, @ModelAttribute BoardSearchCond condition, @RequestParam(defaultValue = "1") long page) {
+        List<Board> boardList = boardService.findList(condition, page);
         model.addAttribute("boardList", boardList);
         return "board/posts";
     }
@@ -50,7 +48,7 @@ public class BoardController {
             Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
             boardService.post(memberId, boardPostDto.getTitle(), boardPostDto.getContent());
         }
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/posts/{id}")
@@ -60,6 +58,7 @@ public class BoardController {
         model.addAttribute("boardDto", boardGetDto);
         return "board/board";
     }
+
     @PostMapping("/posts/{id}")
     public String viewComment() {
         // 댓글 DB 에서 가져와서 view 단으로 model 에 담아서 보내기
