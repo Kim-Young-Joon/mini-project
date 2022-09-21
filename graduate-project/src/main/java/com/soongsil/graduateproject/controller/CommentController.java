@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class CommentController {
 
@@ -15,7 +18,9 @@ public class CommentController {
     }
 
     @GetMapping("/posts/{boardId}/comments")
-    public String list(@PathVariable Long boardId) {
-        return "hello";
+    public Map<String, String> list(@PathVariable Long boardId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("hi", "hello");
+        return map;
     }
 }
