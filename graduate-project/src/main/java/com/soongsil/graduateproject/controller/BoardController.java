@@ -61,10 +61,11 @@ public class BoardController {
 
         // session 에 있는 로그인 정보 가져와서 보내기 (댓글 작성시 댓글 등록 정보에 추가하기 위함)
         HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        String username = memberService.findMember(memberId).getName();
-
-        model.addAttribute("username", username); // user 정보 담기
+        if (session != null) {
+            Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+            String username = memberService.findMember(memberId).getName();
+            model.addAttribute("username", username); // user 정보 담기
+        }
 
         model.addAttribute("boardDto", boardGetDto);
         return "board/postsDetail";
