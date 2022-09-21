@@ -42,7 +42,7 @@ public class MemberController {
         Member member = memberSaveDto.toEntity();
         memberService.join(member);
 
-        return "members/signup";
+        return "redirect:/";
     }
 
     //회원 탈퇴
