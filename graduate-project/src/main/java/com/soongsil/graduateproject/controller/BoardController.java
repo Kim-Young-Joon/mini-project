@@ -5,8 +5,10 @@ import com.soongsil.graduateproject.dto.BoardGetDto;
 import com.soongsil.graduateproject.dto.BoardPostDto;
 import com.soongsil.graduateproject.dto.BoardSearchCond;
 import com.soongsil.graduateproject.service.BoardService;
+import com.soongsil.graduateproject.service.MemberService;
 import com.soongsil.graduateproject.session.SessionConst;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final MemberService memberService;
 
     @GetMapping("/posts")
     public String list(Model model, @ModelAttribute BoardSearchCond condition, @RequestParam(defaultValue = "1") long page) {
@@ -52,9 +55,17 @@ public class BoardController {
     }
 
     @GetMapping("/posts/{id}")
-    public String findOne(@PathVariable Long id, Model model) {
+    public String findOne(@PathVariable Long id, Model model, HttpServletRequest request) {
         Board board = boardService.findOne(id);
         BoardGetDto boardGetDto = new BoardGetDto(board);
+
+        // session 에 있는 로그인 정보 가져와서 보내기 (댓글 작성시 댓글 등록 정보에 추가하기 위함)
+        HttpSession session = request.getSession(false);
+        Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        String username = memberService.findMember(memberId).getName();
+
+        model.addAttribute("username", username); // user 정보 담기
+
         model.addAttribute("boardDto", boardGetDto);
         return "board/postsDetail";
     }
