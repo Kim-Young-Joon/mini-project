@@ -46,7 +46,7 @@ public class MemberController {
     }
 
     //회원 탈퇴
-    @PostMapping("/delete")
+    @PostMapping("members/delete")
     public String delete(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session != null){
@@ -58,7 +58,7 @@ public class MemberController {
     }
 
     //회원 수정
-    @GetMapping("/update")
+    @GetMapping("members/update")
     public String updateForm(@ModelAttribute MemberUpdateDto memberUpdateDto, HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session != null){
@@ -69,7 +69,7 @@ public class MemberController {
         return "members/updateMemberForm";
     }
 
-    @PostMapping("/update")
+    @PostMapping("members/update")
     public String update(@Valid @ModelAttribute MemberUpdateDto memberUpdateDto, BindingResult bindingResult, HttpServletRequest request){
 
         if(bindingResult.hasErrors()){

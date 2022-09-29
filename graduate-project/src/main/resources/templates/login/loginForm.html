@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>로그인</title>
 </head>
 <body>
-
+    <form th:action th:object="${memberLoginDto}" method="post">
+        ID : <input type="text" th:field="*{loginId}"/>
+        PW : <input type="password" th:field="*{password}">
+        <input type="submit" value="로그인">
+    </form>
 </body>
 </html>
