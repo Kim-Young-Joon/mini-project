@@ -1,33 +1,78 @@
-$(document).ready(function () {
-    // 게시글의 아이디 받아오는 부분 필요
-    // 다시 같은 url 로 post 요청 보내기 위함
-    let postId = $('#postId');
-
-    // 댓글 가져오기 -> GET
-    // 댓글 출력 -> POST
-
-    let comment = {
-        user: $("#user").val(),
-        content: $("#content").val()
-    }
+// 댓글 등록하기
+$("#btn-commentSave").click(function() {
+    let myData = $("#commentContent").val();
+    let userName = $("#username").val();
+    let getCommentUrl = "/posts/" + $("#postId").html() + "/comments";
+    let saveCommentUrl = "/posts/" + $("#postId").html() + "/comments/"
 
     $.ajax({
-        async : true,
-        url : '/posts/' + postId, // 댓글 가져올 url -> controller mapping
-        type : 'GET',
-        timeout : 3000, // ms 단위 -> 시간 내에 응답 안오면 실패로 간주함 (즉, 3초 내에 응답)
-        data : comment,
-        success : function() {
-            alert('서버 응답 성공 확인');
-
-            // $("#comment").each(data, function() {});
-            // each 통해서 댓글 출력 x -> thymeleaf 에서 th:each 활용하여 출력
+        type:'POST',
+        url : saveCommentUrl, // 댓글 등록
+        data : JSON.stringify(
+            {
+                "name" : userName,
+                "comment": myData,
+            }
+        ),
+        contentType: 'application/json',
+        success : function(data){
+            if(data=="success")
+            {
+                getCommentList(getCommentUrl);
+                $("#commentContent").val(""); // 등록후 입력창 초기화
+            }
         },
-        error : function() {
-            alert('서버 응답 실패');
+        error : function(request,status,error){
+            alert("댓글 등록 오류")
         }
     });
+
 });
+
+// 초기 로딩시 댓글 불러오기
+$(function() {
+    let getCommentUrl = "/posts/" + $("#postId").html() + "/comments"
+    console.log(getCommentUrl);
+    getCommentList(getCommentUrl);
+});
+
+// 댓글 불러오기
+function getCommentList(myUrl){
+    $.ajax({
+        type:'GET',
+        url : myUrl,
+        dataType : "json",
+        data: $("#CommentList"),
+        contentType: "",
+        success : function(data){
+            let html = "";
+            let cCnt = data.length;
+
+            if(data.length > 0){
+                for(i=0; i<data.length; i++){
+                    html += "<div>";
+                    // html += "<div><table class='table'><h6><strong>"+data[i].writer+"</strong></h6>";
+                    // html += data[i].comment + "<tr><td></td></tr>";
+                    // html += "</table></div>";
+                    html += "test";
+                    html += "</div>";
+                }
+            } else {
+                html += "<div>";
+                html += "<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+                html += "</table></div>";
+                html += "</div>";
+            }
+
+            $("#cCnt").html(cCnt);
+            $("#commentList").html(html);
+        },
+        error : function(request,status,error){
+            alert("댓글 가져오기 오류")
+        }
+    });
+}
+
 /*
     1. 데이터 받아오는 형태 확인
     2. 게시판 세부 보기 화면에서 미리 댓글 영역 잡혀 있는 상태 -> 이 곳으로 데이터 집어 넣어야 함

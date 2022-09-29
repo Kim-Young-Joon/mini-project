@@ -16,19 +16,27 @@
 <body>
     <div> <!-- 게시글 출력 영역-->
         <table>
-<!--            <h1 th:text="${boardDto.id}"></h1>-->
-<!--            <h1 th:text="${boardDto.title}"></h1>-->
-<!--            <h1 th:text="${boardDto.content}"></h1>-->
-<!--            <h1 th:text="${boardDto.loginId}"></h1>-->
+            <h1 th:text="${boardDto.id}" id="postId"></h1>
+            <h1 th:text="${boardDto.title}"></h1>
+            <h1 th:text="${boardDto.content}"></h1>
+            <h1 th:text="${boardDto.loginId}"></h1>
         </table>
     </div>
 
-    <div> <!-- 댓글 출력 영역 -->
+    <div> <!-- 댓글 추가 영역 -->
+        <div th:text="${username}" id="username"></div>
+
+        <input type="text" id="commentContent" />
+        <input type="button" id="btn-commentSave" />
+    </div>
+
+    <div id="commentList"> <!-- 댓글 출력 영역 -->
 <!--        Todo -->
 <!--        1. 최초 DB 에서 댓글 불러오기-->
 <!--        2. 댓글 작성-->
 <!--        3. Ajax -> 댓글 저장하는 컨트롤러로 보내서 저장 -->
 <!--        4. redirect -->
+
     </div>
 </body>
 </html>
