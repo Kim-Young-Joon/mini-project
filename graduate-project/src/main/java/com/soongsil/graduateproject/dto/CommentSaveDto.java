@@ -4,6 +4,5 @@ import lombok.Data;
 
 @Data
 public class CommentSaveDto {
-    private String name;
-    private String comment;
+    private String content;
 }
