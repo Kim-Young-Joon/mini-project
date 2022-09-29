@@ -6,10 +6,7 @@ import com.soongsil.graduateproject.dto.CommentSaveDto;
 import com.soongsil.graduateproject.service.CommentService;
 import com.soongsil.graduateproject.session.SessionConst;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,7 +22,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/posts/{boardId}/comments")
-    public void save(@PathVariable Long boardId, CommentSaveDto commentSaveDto, HttpServletRequest request) {
+    public void save(@PathVariable Long boardId, @RequestBody CommentSaveDto commentSaveDto, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);

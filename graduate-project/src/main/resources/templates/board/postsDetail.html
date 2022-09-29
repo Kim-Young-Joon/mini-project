@@ -27,7 +27,7 @@
         <div th:text="${username}" id="username"></div>
 
         <input type="text" id="commentContent" />
-        <input type="button" id="btn-commentSave" />
+        <button type="button" id="btn-commentSave" th:onclick="commentSave()">쓰기</button>
     </div>
 
     <div id="commentList"> <!-- 댓글 출력 영역 -->

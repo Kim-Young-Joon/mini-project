@@ -1,33 +1,36 @@
 // 댓글 등록하기
-$("#btn-commentSave").click(function() {
+// $("#btn-commentSave").on("click", function() {
+function commentSave() {
     let myData = $("#commentContent").val();
     let userName = $("#username").val();
     let getCommentUrl = "/posts/" + $("#postId").html() + "/comments";
-    let saveCommentUrl = "/posts/" + $("#postId").html() + "/comments/"
+    let saveCommentUrl = "/posts/" + $("#postId").html() + "/comments";
+
+    console.log("댓글 등록 시작 - button 인식")
+    console.log("data : " + myData);
+    console.log("user : " + userName);
+
+    console.log(saveCommentUrl);
+    console.log(getCommentUrl);
 
     $.ajax({
         type:'POST',
         url : saveCommentUrl, // 댓글 등록
         data : JSON.stringify(
             {
-                "name" : userName,
-                "comment": myData,
+                "content": myData
             }
         ),
         contentType: 'application/json',
-        success : function(data){
-            if(data=="success")
-            {
-                getCommentList(getCommentUrl);
-                $("#commentContent").val(""); // 등록후 입력창 초기화
-            }
+        success : function(){
+            getCommentList(getCommentUrl);
+            $("#commentContent").val(""); // 등록후 입력창 초기화
         },
         error : function(request,status,error){
             alert("댓글 등록 오류")
         }
     });
-
-});
+}
 
 // 초기 로딩시 댓글 불러오기
 $(function() {
@@ -38,6 +41,7 @@ $(function() {
 
 // 댓글 불러오기
 function getCommentList(myUrl){
+    console.log("getcommentList 함수 시작");
     $.ajax({
         type:'GET',
         url : myUrl,
@@ -51,10 +55,9 @@ function getCommentList(myUrl){
             if(data.length > 0){
                 for(i=0; i<data.length; i++){
                     html += "<div>";
-                    // html += "<div><table class='table'><h6><strong>"+data[i].writer+"</strong></h6>";
-                    // html += data[i].comment + "<tr><td></td></tr>";
-                    // html += "</table></div>";
-                    html += "test";
+                    html += "<div><table class='table'><tr><td><h6><strong>"+data[i].memberName+"</strong></h6></td>";
+                    html += "<td>" + data[i].content + "</td></tr>";
+                    html += "</table></div>";
                     html += "</div>";
                 }
             } else {
