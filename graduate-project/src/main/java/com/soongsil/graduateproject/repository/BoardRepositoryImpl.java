@@ -3,8 +3,6 @@ package com.soongsil.graduateproject.repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soongsil.graduateproject.domain.Board;
-import com.soongsil.graduateproject.domain.QBoard;
-import com.soongsil.graduateproject.domain.QMember;
 import com.soongsil.graduateproject.dto.BoardSearchCond;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;

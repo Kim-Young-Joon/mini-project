@@ -8,7 +8,6 @@ import com.soongsil.graduateproject.service.BoardService;
 import com.soongsil.graduateproject.service.MemberService;
 import com.soongsil.graduateproject.session.SessionConst;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,9 +70,4 @@ public class BoardController {
         return "board/postsDetail";
     }
 
-    @PostMapping("/posts/{id}")
-    public String viewComment() {
-        // 댓글 DB 에서 가져와서 view 단으로 model 에 담아서 보내기
-        return "";
-    }
 }

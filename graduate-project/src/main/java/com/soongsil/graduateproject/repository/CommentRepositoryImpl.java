@@ -2,8 +2,6 @@ package com.soongsil.graduateproject.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soongsil.graduateproject.domain.Comment;
-import com.soongsil.graduateproject.domain.QComment;
-import com.soongsil.graduateproject.domain.QMember;
 
 import javax.persistence.EntityManager;
 import java.util.List;

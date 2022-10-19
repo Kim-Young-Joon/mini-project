@@ -1,6 +1,5 @@
 package com.soongsil.graduateproject.dto;
 
-import com.soongsil.graduateproject.domain.Board;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
