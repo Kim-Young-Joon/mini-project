@@ -99,7 +99,7 @@ public class MemberController {
 
     //로그인
     @PostMapping("/login")
-    public String login(@ModelAttribute MemberLoginDto memberLoginDto, BindingResult bindingResult, HttpServletRequest request){
+    public String login(@Valid @ModelAttribute MemberLoginDto memberLoginDto, BindingResult bindingResult, HttpServletRequest request){
         if(bindingResult.hasErrors()){
             return "login/loginForm";
         }

@@ -44,6 +44,7 @@ public class Member extends BaseEntity{
         this.name = name;
         this.mail = mail;
         this.phoneNumber = phoneNumber;
+        this.isSignUp = true;
     }
 
     //로그인 메서드
