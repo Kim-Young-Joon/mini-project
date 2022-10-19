@@ -26,4 +26,8 @@ public class Menu {
 
     @Enumerated(EnumType.STRING)
     private Category category;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private Image image;
 }
