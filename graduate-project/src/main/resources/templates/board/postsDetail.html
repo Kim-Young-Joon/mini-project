@@ -30,7 +30,16 @@
         <button type="button" id="btn-commentSave" th:onclick="commentSave()">쓰기</button>
     </div>
 
-    <div id="commentList"> <!-- 댓글 출력 영역 -->
+    <div class="container p-3 my-2 border"> <!-- 댓글 출력 영역 -->
+        <table >
+            <thead>
+                <th>작성자</th>
+                <th>댓글 내용</th>
+            </thead>
+            <tbody id="commentList">
+
+            </tbody>
+        </table>
 <!--        Todo -->
 <!--        1. 최초 DB 에서 댓글 불러오기-->
 <!--        2. 댓글 작성-->
