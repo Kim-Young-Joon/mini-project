@@ -27,7 +27,12 @@ public class Menu {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
-    private Image image;
+    private String imageName;
+
+    private String imagePath;
+
+    public void setImage(String fileName) {
+        this.imageName = fileName;
+        this.imagePath = "/files/" + fileName;
+    }
 }
