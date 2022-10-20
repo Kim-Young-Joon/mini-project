@@ -18,6 +18,7 @@ public class Cafe {
 
     private String name;
 
-    private String city;
-
+    public Cafe(String name) {
+        this.name = name;
+    }
 }
