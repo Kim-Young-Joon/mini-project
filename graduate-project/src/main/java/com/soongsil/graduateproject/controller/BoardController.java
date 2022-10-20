@@ -29,6 +29,7 @@ public class BoardController {
     public String list(Model model, @ModelAttribute BoardSearchCond condition, @RequestParam(defaultValue = "1") long page) {
         List<Board> boardList = boardService.findList(condition, page);
         model.addAttribute("boardList", boardList);
+        model.addAttribute("page", page);
         return "board/posts";
     }
 
@@ -39,7 +40,7 @@ public class BoardController {
     }
 
     @PostMapping("/posts/write")
-    public String write(@Valid @ModelAttribute BoardPostDto boardPostDto, BindingResult bindingResult, HttpServletRequest request){
+    public String write(@Valid @ModelAttribute(name = "boardForm") BoardPostDto boardPostDto, BindingResult bindingResult, HttpServletRequest request){
 
         if(bindingResult.hasErrors()){
             return "board/postsWrite";
