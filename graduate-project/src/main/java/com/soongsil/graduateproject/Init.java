@@ -28,14 +28,14 @@ public class Init {
 
         @Transactional
         public void init(){
-            Member memberA = new Member("memberA", "aaa", "aaa", "aaa@aaa.com", "12334");
-            Member memberB = new Member("memberB", "aaa", "bbb", "aaa@aaa.com", "12334");
+            Member memberA = new Member("admin1", "aaa", "admin1", "aaa@aaa.com", "12334");
+            Member memberB = new Member("admin2", "aaa", "admin2", "aaa@aaa.com", "12334");
             em.persist(memberB);
             em.persist(memberA);
 
             for (int i = 0; i < 100; i++) {
                 Member selectedMember = i % 2 == 0 ? memberA : memberB;
-                Board board = new Board(selectedMember ,"test" + i, "contents" + i);
+                Board board = new Board(selectedMember ,"테스트" + i, "내용" + i);
                 em.persist(board);
             }
         }
