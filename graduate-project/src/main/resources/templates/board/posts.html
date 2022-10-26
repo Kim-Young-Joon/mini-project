@@ -42,7 +42,7 @@
     </tbody>
 </table>
     <div style="text-align: center">
-        <a th:if="${page != nowPage}" th:href="@{/board/list(page=${page-1}, titleAndContent=${condition.titleAndContent})}" th:text ="${page}"></a>
+<!--        <a th:if="${page != nowPage}" th:href="@{/board/list(page=${page-1}, titleAndContent=${condition.titleAndContent})}" th:text ="${page}"></a>-->
         <!-- 위 부분 수정 필요 -->
         <button onclick="location.href='/posts?page=1'">1</button>
         <button onclick="location.href='/posts?page=2'">2</button>
