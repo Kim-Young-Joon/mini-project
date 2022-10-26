@@ -25,11 +25,12 @@ public class BoardService {
     }
 
     @Transactional
-    public void post(Long memberId, String title, String content){
+    public Long post(Long memberId, String title, String content){
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 회원 정보입니다."));
         Board board = new Board(member, title, content);
         boardRepository.save(board);
+        return board.getId();
     }
 
     public Board findOne(Long id) {
@@ -40,7 +41,5 @@ public class BoardService {
     public List<Board> findList(BoardSearchCond condition, Long page) {
         return boardRepository.search(condition, page);
     }
-
-
 
 }
