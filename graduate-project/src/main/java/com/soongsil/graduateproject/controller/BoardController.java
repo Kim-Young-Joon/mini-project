@@ -49,7 +49,8 @@ public class BoardController {
         HttpSession session = request.getSession(false);
         if(session != null){
             Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
-            boardService.post(memberId, boardPostDto.getTitle(), boardPostDto.getContent());
+            Long boardId = boardService.post(memberId, boardPostDto.getTitle(), boardPostDto.getContent());
+            return "redirect:/posts/" + boardId;
         }
         return "redirect:/";
     }
